@@ -1,0 +1,122 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="recepiForm" (ngSubmit)="onSubmit()">
+      <!-- Dugmici -->
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-success" style="margin-right: 10px;" [disabled]="!recepiForm.valid">Save</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+      <br>
+      <!-- From -->
+      <div class="row">
+        <div class="col-xs-12">
+
+
+          <!-- Ime -->
+            <div class="row">
+                <div class="col-xs-12">
+                      <div class="form-group">
+                        <label for="name">Name</label>
+                        <input 
+                          type="text"
+                          id="name"
+                          formControlName="name"
+                          class="form-control"
+                        >
+                      </div>
+                </div>
+              </div>
+            <!-- URl za Sliku -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="imgPath">Img URL</label>
+                        <input 
+                          type="text"
+                          id="imgPath"
+                          formControlName="imgPath"
+                          #imgP
+                          class="form-control"
+                        >
+                    </div>
+                </div>
+              </div>
+            <!-- Slika -->  
+            <div class="row">
+                <div class="col-xs-12">
+                    <img [src]="imgP.value" class="img-responsive">
+                </div>
+            </div>
+
+
+            <!-- Opis Recepta -->
+            <div class="row">
+                <div class="col-xs-12">
+                      <div class="form-group">
+                        <label for="opis">Opis</label>
+                        <textarea
+                          type="text"
+                          id="opis"
+                          class="form-control"
+                          formControlName="opis"
+                          rows="6"
+                        ></textarea> 
+                      </div>
+                </div>
+              </div>
+
+            <!-- Namernice -->
+            <div class="row">
+                <div class="col-xs-12" formArrayName="namernice">
+
+                    <div class="row"
+                          *ngFor="let ingr of recepiForm.get('namernice').controls; let i = index"
+                         [formGroupName]="i">
+
+                        <!-- Ime -->
+                      <div class="col-xs-8">
+                        <input 
+                          type="text"
+                          formControlName="name"
+                          class="form-control"
+                        >
+                      </div>
+
+                      <!-- Kolicina -->
+                      <div class="col-xs-2">
+                          <input 
+                          type="number"
+                          formControlName="amount"
+                          class="form-control"
+                        >
+                      </div>
+
+
+                      <!-- Izbrisi -->
+                      <div class="col-xs-2">
+                          <button 
+                            type="button"
+                            (click)="onDeliteIng(i)"
+                            class="btn btn-danger"
+                          >X</button>
+                      </div>
+                      
+                    </div>
+                    <hr>
+
+                    <!-- Dugme za dodavanje novih namernica -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                          <button type="button" class="btn btn-success" (click)="onAddIngridient()">Dodaj Namirnice</button>
+                        </div>
+                      </div>
+                </div>
+              </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
